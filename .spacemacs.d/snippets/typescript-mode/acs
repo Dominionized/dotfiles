@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: advancedComponentSetup
+# key: acs
+# --
+Mock.advancedComponentSetup<$1>($1, <Mock.AdvancedComponentSetupOptions>{
+  $2
+});

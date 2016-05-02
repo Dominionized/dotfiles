@@ -1,0 +1,19 @@
+# -*- mode: snippet -*-
+# name: testScaffolding
+# key: test
+# --
+/// <reference path="../Test.ts" />
+module Coveo {
+  describe('${1:`(substring (file-name-nondirectory (file-name-sans-extension (buffer-file-name))) 0 -4)`}', function () {
+    let test: Mock.IBasicComponentSetup<$1>;
+    beforeEach(function () {
+      $0
+    })
+    afterEach(function () {
+
+    })
+    describe('exposes options', function () {
+
+    })
+  })
+}

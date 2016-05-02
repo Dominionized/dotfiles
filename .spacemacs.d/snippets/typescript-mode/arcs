@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: advancedResultComponentSetup
+# key: arcs
+# --
+Mock.advancedResultComponentSetup<$1>($1, ${2:FakeResults.createFakeResult()}, <Mock.AdvancedComponentSetupOptions>{
+  $3
+});

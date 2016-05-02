@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: optionsComponentSetup
+# key: ocs
+# --
+Mock.optionsComponentSetup<$1, $2>($1, <$2>{
+  $3
+})

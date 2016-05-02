@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: basicResultComponentSetup
+# key: brcs
+# --
+Mock.basicResultComponentSetup<$1>($1);
