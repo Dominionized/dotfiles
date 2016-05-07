@@ -265,14 +265,14 @@ in `dotspacemacs/user-config'."
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
-  (setq powerline-default-separator nil)
+  (setq powerline-default-separator 'arrow)
   (global-set-key (kbd "s-<up>") 'spacemacs/toggle-maximize-frame)
   (global-set-key (kbd "s-<down>") 'spacemacs/toggle-maximize-frame)
   (spacemacs/toggle-vi-tilde-fringe-off)
   (setq org-startup-indented t)
   (add-hook 'org-mode-hook 'turn-on-auto-fill)
   (add-hook 'markdown-mode-hook 'turn-on-auto-fill)
-  (setq 'writeroom-width 80))
+  (setq 'writeroom-width 80)
   (setq js-indent-level 2)
   (setq typescript-indent-level 2)
   (setq-default css-indent-offset 2)
@@ -321,5 +321,6 @@ layers configuration. You are free to put any user code."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(mode-line ((t (:underline nil :overline nil))))
  '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
  '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
