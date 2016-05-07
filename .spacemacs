@@ -25,7 +25,12 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     auto-completion
+     (auto-completion :variables
+                      auto-completion-tab-key-behavior 'complete
+                      auto-completion-return-key-behavior 'complete
+                      auto-completion-enable-snippets-in-popup t
+                      auto-completion-enable-help-tooltip t
+                      auto-completion-enable-sort-by-usage t)
      ;; better-defaults
      emacs-lisp
      git
@@ -39,6 +44,7 @@ values."
      version-control
      clojure
      javascript
+     html
      python
      react
      colors
@@ -50,8 +56,14 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(writeroom-mode
-                                      dracula-theme)
+   dotspacemacs-additional-packages '(tide
+                                      tumblesocks
+                                      dracula-theme
+                                      writeroom-mode
+                                      railscasts-theme
+                                      color-theme-sanityinc-tomorrow
+                                      moe-theme
+                                      material-theme)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -117,7 +129,7 @@ values."
                                :size 12
                                :weight normal
                                :width normal
-                               :powerline-scale 1.3)
+                               :powerline-scale 1.0)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The leader key accessible in `emacs state' and `insert state'
@@ -214,7 +226,7 @@ values."
    ;; If non nil line numbers are turned on in all `prog-mode' and `text-mode'
    ;; derivatives. If set to `relative', also turns on relative line numbers.
    ;; (default nil)
-   dotspacemacs-line-numbers t
+   dotspacemacs-line-numbers nil
    ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
    ;; (default nil)
    dotspacemacs-smartparens-strict-mode nil
@@ -253,15 +265,48 @@ in `dotspacemacs/user-config'."
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
-  (setq powerline-default-separator 'bar)
+  (setq powerline-default-separator nil)
   (global-set-key (kbd "s-<up>") 'spacemacs/toggle-maximize-frame)
   (global-set-key (kbd "s-<down>") 'spacemacs/toggle-maximize-frame)
-  (setq-default indicate-empty-lines nil)
-  (setq indicate-empty-lines nil)
+  (spacemacs/toggle-vi-tilde-fringe-off)
   (setq org-startup-indented t)
   (add-hook 'org-mode-hook 'turn-on-auto-fill)
   (add-hook 'markdown-mode-hook 'turn-on-auto-fill)
   (setq 'writeroom-width 80))
+  (setq js-indent-level 2)
+  (setq typescript-indent-level 2)
+  (setq-default css-indent-offset 2)
+
+  ;; Truncate lines by default
+  (add-hook 'hack-local-variables-hook (lambda () (setq truncate-lines t)))
+
+  (setq-default tumblesocks-blog "coveo2016.tumblr.com")
+  ;; sample config
+  (add-hook 'typescript-mode-hook
+            (lambda ()
+              (tide-setup)
+              (flycheck-mode +1)
+              (setq flycheck-check-syntax-automatically '(save mode-enabled))
+              (eldoc-mode +1)
+              ;; company is an optional dependency. You have to
+              ;; install it separately via package-install
+              (company-mode-on)))
+
+  ;; aligns annotation to the right hand side
+  (setq company-tooltip-align-annotations t)
+
+  ;; Tide can be used along with web-mode to edit tsx files
+  (require 'web-mode)
+  (add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
+  (add-hook 'web-mode-hook
+            (lambda ()
+              (when (string-equal "tsx" (file-name-extension buffer-file-name))
+                (tide-setup)
+                (flycheck-mode +1)
+                (setq flycheck-check-syntax-automatically '(save mode-enabled))
+                (eldoc-mode +1)
+                (company-mode-on))))
+  )
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
@@ -276,6 +321,5 @@ layers configuration. You are free to put any user code."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Hack" :foundry "simp" :slant normal :weight normal :height 105 :width normal))))
  '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
  '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))

@@ -1,0 +1,8 @@
+
+# -*- mode: snippet -*-
+# name: optionsResultComponentSetup
+# key: orcs
+# --
+Mock.optionsResultComponentSetup<$1, $2>($1, <$2>{
+  $3
+}, ${4:FakeResults.createFakeResult()})

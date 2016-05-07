@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: basicComponentSetup
+# key: bcs
+# --
+Mock.basicComponentSetup<$1>($1);
