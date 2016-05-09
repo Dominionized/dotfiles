@@ -44,6 +44,7 @@ values."
      version-control
      clojure
      javascript
+     scala
      html
      python
      react
@@ -285,7 +286,7 @@ layers configuration. You are free to put any user code."
   (setq css-indent-offset 2)
 
   ;; Truncate lines by default
-  (add-hook 'text-mode-hook (lambda () (setq truncate-lines t)))
+  (setq-default truncate-lines t)
 
   (setq-default tumblesocks-blog "coveo2016.tumblr.com")
   ;; sample config
@@ -329,5 +330,7 @@ layers configuration. You are free to put any user code."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(mode-line ((t (:underline nil :overline nil))))
+ '(mode-line-inactive ((t (:underline nil :overline nil))))
+ '(mode-line-highlight ((t (:box nil))))
  '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
  '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
