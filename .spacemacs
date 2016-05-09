@@ -46,7 +46,10 @@ values."
      javascript
      html
      python
-     java
+     react
+     colors
+     latex
+     themes-megapack
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -55,6 +58,7 @@ values."
    dotspacemacs-additional-packages '(tide
                                       tumblesocks
                                       dracula-theme
+                                      writeroom-mode
                                       railscasts-theme
                                       color-theme-sanityinc-tomorrow
                                       moe-theme
@@ -114,7 +118,8 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(solarized-dark
-                         solarized-light)
+                         solarized-light
+                         spacegray)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
@@ -270,6 +275,8 @@ layers configuration. You are free to put any user code."
   ;; Enable camelCase motion globally by default
   (spacemacs/toggle-camel-case-motion-globally-on)
 
+  (setq writeroom-width 80)
+
   ;; Indent with 2 spaces
   (setq js-indent-level 2)
   (setq js2-basic-offset 2)
@@ -315,11 +322,12 @@ layers configuration. You are free to put any user code."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(flycheck-highlighting-mode (quote lines)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(mode-line ((t (:underline nil :overline nil))))
  '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
  '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
