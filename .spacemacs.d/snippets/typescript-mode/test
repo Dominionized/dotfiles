@@ -10,7 +10,7 @@ module Coveo {
       $0
     })
     afterEach(function () {
-
+      test = null;
     })
     describe('exposes options', function () {
 

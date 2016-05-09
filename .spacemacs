@@ -46,6 +46,7 @@ values."
      javascript
      html
      python
+     java
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -99,7 +100,7 @@ values."
    ;; directory. A string value must be a path to an image format supported
    ;; by your Emacs build.
    ;; If the value is nil then no banner is displayed. (default 'official)
-   dotspacemacs-startup-banner 'official
+   dotspacemacs-startup-banner 'random
    ;; List of items to show in the startup buffer. If nil it is disabled.
    ;; Possible values are: `recents' `bookmarks' `projects'.
    ;; (default '(recents projects))
@@ -108,7 +109,7 @@ values."
    ;; `dotspacemacs-startup-lists' doesn't include `recents'. (default 5)
    dotspacemacs-startup-recent-list-size 5
    ;; Default major mode of the scratch buffer (default `text-mode')
-   dotspacemacs-scratch-mode 'text-mode
+   dotspacemacs-scratch-mode 'org-mode
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
@@ -243,7 +244,7 @@ values."
    ;; `trailing' to delete only the whitespace at end of lines, `changed'to
    ;; delete only whitespace for changed lines or `nil' to disable cleanup.
    ;; (default nil)
-   dotspacemacs-whitespace-cleanup nil
+   dotspacemacs-whitespace-cleanup 'trailing
    ))
 
 (defun dotspacemacs/user-init ()
@@ -258,7 +259,7 @@ in `dotspacemacs/user-config'."
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
-  (setq powerline-default-separator nil)
+  (setq powerline-default-separator 'utf-8)
   (global-set-key (kbd "s-<up>") 'spacemacs/toggle-maximize-frame)
   (global-set-key (kbd "s-<down>") 'spacemacs/toggle-maximize-frame)
   (spacemacs/toggle-vi-tilde-fringe-off)
@@ -266,12 +267,18 @@ layers configuration. You are free to put any user code."
   (add-hook 'org-mode-hook 'turn-on-auto-fill)
   (add-hook 'markdown-mode-hook 'turn-on-auto-fill)
 
+  ;; Enable camelCase motion globally by default
+  (spacemacs/toggle-camel-case-motion-globally-on)
+
+  ;; Indent with 2 spaces
   (setq js-indent-level 2)
+  (setq js2-basic-offset 2)
+  (setq web-mode-markup-indent-offset 2)
   (setq typescript-indent-level 2)
-  (setq-default css-indent-offset 2)
+  (setq css-indent-offset 2)
 
   ;; Truncate lines by default
-  (add-hook 'hack-local-variables-hook (lambda () (setq truncate-lines t)))
+  (add-hook 'text-mode-hook (lambda () (setq truncate-lines t)))
 
   (setq-default tumblesocks-blog "coveo2016.tumblr.com")
   ;; sample config
