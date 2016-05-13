@@ -105,7 +105,7 @@ values."
    ;; directory. A string value must be a path to an image format supported
    ;; by your Emacs build.
    ;; If the value is nil then no banner is displayed. (default 'official)
-   dotspacemacs-startup-banner 'random
+   dotspacemacs-startup-banner 999
    ;; List of items to show in the startup buffer. If nil it is disabled.
    ;; Possible values are: `recents' `bookmarks' `projects'.
    ;; (default '(recents projects))
@@ -118,9 +118,9 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(solarized-dark
-                         solarized-light
-                         spacegray)
+   dotspacemacs-themes '(gruvbox-dark
+                         solarized-dark
+                         solarized-light)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
@@ -270,6 +270,8 @@ layers configuration. You are free to put any user code."
   (global-set-key (kbd "s-<down>") 'spacemacs/toggle-maximize-frame)
   (spacemacs/toggle-vi-tilde-fringe-off)
   (setq org-startup-indented t)
+
+  ;; Turn on auto-fill for Org mode and Markdown
   (add-hook 'org-mode-hook 'turn-on-auto-fill)
   (add-hook 'markdown-mode-hook 'turn-on-auto-fill)
 
@@ -293,6 +295,8 @@ layers configuration. You are free to put any user code."
   (add-hook 'typescript-mode-hook
             (lambda ()
               (tide-setup)
+              (global-unset-key (kbd "M-."))
+              (local-set-key (kbd "M-.") 'tide-jump-to-definition)
               (flycheck-mode +1)
               (setq flycheck-check-syntax-automatically '(save mode-enabled))
               (eldoc-mode +1)
@@ -302,6 +306,13 @@ layers configuration. You are free to put any user code."
 
   ;; aligns annotation to the right hand side
   (setq company-tooltip-align-annotations t)
+
+  (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
+
+  ;; Swap alt and cmd on Mac
+  (when (eq system-type 'darwin)
+    (setq mac-command-modifier 'meta)
+    (setq mac-option-modifier nil))
 
   ;; Tide can be used along with web-mode to edit tsx files
   (require 'web-mode)
