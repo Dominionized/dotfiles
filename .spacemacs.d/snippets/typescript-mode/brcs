@@ -2,4 +2,4 @@
 # name: basicResultComponentSetup
 # key: brcs
 # --
-Mock.basicResultComponentSetup<$1>($1);
+Mock.basicResultComponentSetup<${1:`(substring (file-name-nondirectory (file-name-sans-extension (buffer-file-name))) 0 -4)`}>($1);

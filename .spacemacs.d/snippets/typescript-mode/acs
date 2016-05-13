@@ -2,6 +2,6 @@
 # name: advancedComponentSetup
 # key: acs
 # --
-Mock.advancedComponentSetup<$1>($1, <Mock.AdvancedComponentSetupOptions>{
+Mock.advancedComponentSetup<${1:`(substring (file-name-nondirectory (file-name-sans-extension (buffer-file-name))) 0 -4)`}>($1, <Mock.AdvancedComponentSetupOptions>{
   $2
 });
