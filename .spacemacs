@@ -258,7 +258,7 @@ values."
 It is called immediately after `dotspacemacs/init'.  You are free to put almost
 any user code here.  The exception is org related code, which should be placed
 in `dotspacemacs/user-config'."
-  )
+  (add-to-list 'custom-theme-load-path "~/.spacemacs.d/themes/"))
 
 
 (defun dotspacemacs/user-config ()
@@ -306,8 +306,6 @@ layers configuration. You are free to put any user code."
 
   ;; aligns annotation to the right hand side
   (setq company-tooltip-align-annotations t)
-
-  (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
 
   ;; Swap alt and cmd on Mac
   (when (eq system-type 'darwin)
