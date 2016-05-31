@@ -7,9 +7,6 @@
 (defconst org-reveal-packages '(ox-reveal))
 
 (defun org-reveal/init-ox-reveal ()
-  (use-package ox-reveal
-    :config
-    (let ((base (f-dirname (symbol-file 'cb-org-reveal-packages))))
-      (setq org-reveal-root (f-join base "submodules" "reveal.js")))))
+  (use-package ox-reveal))
 
 ;;; End
