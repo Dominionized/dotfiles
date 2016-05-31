@@ -226,7 +226,7 @@ values."
    ;; If non nil line numbers are turned on in all `prog-mode' and `text-mode'
    ;; derivatives. If set to `relative', also turns on relative line numbers.
    ;; (default nil)
-   dotspacemacs-line-numbers nil
+   dotspacemacs-line-numbers 'relative
    ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
    ;; (default nil)
    dotspacemacs-smartparens-strict-mode nil
@@ -308,6 +308,9 @@ layers configuration. You are free to put any user code."
 
   ;; aligns annotation to the right hand side
   (setq company-tooltip-align-annotations t)
+
+  ;; Enable golden ratio by default
+  (spacemacs/toggle-golden-ratio-on)
 
   ;; Swap alt and cmd on Mac
   (when (eq system-type 'darwin)
