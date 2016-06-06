@@ -270,8 +270,10 @@ layers configuration. You are free to put any user code."
   (add-hook 'markdown-mode-hook 'turn-on-auto-fill)
 
   ;; Disable company mode in org mode
-  (add-hook 'org-mode-hook (lambda ()
-                             (company-mode 0)))
+  (add-hook 'org-mode-hook (lambda () (company-mode 0)))
+
+  ;; Enable YASnippet in text-mode
+  (add-hook 'text-mode-hook (lambda () (yas-minor-mode 1)))
 
   (setq org-reveal-root (expand-file-name "~/code/reveal.js"))
 
@@ -303,18 +305,6 @@ layers configuration. You are free to put any user code."
   (when (eq system-type 'darwin)
     (setq mac-command-modifier 'meta)
     (setq mac-option-modifier nil))
-
-  ;; Tide can be used along with web-mode to edit tsx files
-  (require 'web-mode)
-  (add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
-  (add-hook 'web-mode-hook
-            (lambda ()
-              (when (string-equal "tsx" (file-name-extension buffer-file-name))
-                (tide-setup)
-                (flycheck-mode +1)
-                (setq flycheck-check-syntax-automatically '(save mode-enabled))
-                (eldoc-mode +1)
-                (company-mode-on))))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
