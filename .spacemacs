@@ -50,20 +50,14 @@ values."
      react
      colors
      latex
+     typescript
      org-reveal
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(tide
-                                      tumblesocks
-                                      dracula-theme
-                                      writeroom-mode
-                                      railscasts-theme
-                                      color-theme-sanityinc-tomorrow
-                                      moe-theme
-                                      material-theme)
+   dotspacemacs-additional-packages '(writeroom-mode)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -275,6 +269,10 @@ layers configuration. You are free to put any user code."
   (add-hook 'org-mode-hook 'turn-on-auto-fill)
   (add-hook 'markdown-mode-hook 'turn-on-auto-fill)
 
+  ;; Disable company mode in org mode
+  (add-hook 'org-mode-hook (lambda ()
+                             (company-mode 0)))
+
   (setq org-reveal-root (expand-file-name "~/code/reveal.js"))
 
   ;; Enable camelCase motion globally by default
@@ -294,20 +292,6 @@ layers configuration. You are free to put any user code."
 
   ;; Truncate lines by default
   (setq-default truncate-lines t)
-
-  (setq-default tumblesocks-blog "coveo2016.tumblr.com")
-  ;; sample config
-  (add-hook 'typescript-mode-hook
-            (lambda ()
-              (tide-setup)
-              (global-unset-key (kbd "M-."))
-              (local-set-key (kbd "M-.") 'tide-jump-to-definition)
-              (flycheck-mode +1)
-              (setq flycheck-check-syntax-automatically '(save mode-enabled))
-              (eldoc-mode +1)
-              ;; company is an optional dependency. You have to
-              ;; install it separately via package-install
-              (company-mode-on)))
 
   ;; aligns annotation to the right hand side
   (setq company-tooltip-align-annotations t)
