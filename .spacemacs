@@ -289,6 +289,9 @@ layers configuration. You are free to put any user code."
   (setq typescript-indent-level 2)
   (setq css-indent-offset 2)
 
+  ;; Disable semicolon warning in js2-mode
+  (setq js2-strict-missing-semi-warning nil)
+
   ;; Truncate lines by default
   (setq-default truncate-lines t)
 
