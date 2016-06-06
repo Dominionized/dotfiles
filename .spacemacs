@@ -48,7 +48,7 @@ values."
      html
      python
      react
-     (colors :variables colors-enable-nyan-cat-progress-bar t)
+     colors
      latex
      typescript
      org-reveal
