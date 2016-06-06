@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: jira
+# key: jira
+# --
+https://coveord.atlassian.net/browse/JSUI-$1

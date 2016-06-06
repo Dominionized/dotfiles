@@ -13,7 +13,7 @@ values."
    dotspacemacs-distribution 'spacemacs
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
-   dotspacemacs-configuration-layer-path '()
+   dotspacemacs-configuration-layer-path '("~/.spacemacs.d/private")
    ;; List of configuration layers to load. If it is the symbol `all' instead
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
@@ -51,6 +51,7 @@ values."
      (colors :variables colors-enable-nyan-cat-progress-bar t)
      latex
      typescript
+     org-reveal
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -219,7 +220,7 @@ values."
    ;; If non nil line numbers are turned on in all `prog-mode' and `text-mode'
    ;; derivatives. If set to `relative', also turns on relative line numbers.
    ;; (default nil)
-   dotspacemacs-line-numbers nil
+   dotspacemacs-line-numbers 'relative
    ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
    ;; (default nil)
    dotspacemacs-smartparens-strict-mode nil
@@ -272,6 +273,8 @@ layers configuration. You are free to put any user code."
   (add-hook 'org-mode-hook (lambda ()
                              (company-mode 0)))
 
+  (setq org-reveal-root (expand-file-name "~/code/reveal.js"))
+
   ;; Enable camelCase motion globally by default
   (spacemacs/toggle-camel-case-motion-globally-on)
 
@@ -289,6 +292,9 @@ layers configuration. You are free to put any user code."
 
   ;; aligns annotation to the right hand side
   (setq company-tooltip-align-annotations t)
+
+  ;; Enable golden ratio by default
+  (spacemacs/toggle-golden-ratio-on)
 
   ;; Swap alt and cmd on Mac
   (when (eq system-type 'darwin)
@@ -315,14 +321,19 @@ layers configuration. You are free to put any user code."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(flycheck-highlighting-mode (quote lines)))
+ '(org-file-apps
+   (quote
+    ((auto-mode . emacs)
+     ("\\.mm\\'" . default)
+     ("\\.x?html?\\'" . default)
+     ("\\.pdf\\'" . "evince %s")))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(mode-line ((t (:underline nil :overline nil))))
- '(mode-line-inactive ((t (:underline nil :overline nil))))
- '(mode-line-highlight ((t (:box nil))))
  '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
- '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
+ '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil))))
+ '(mode-line ((t (:underline nil :overline nil))))
+ '(mode-line-highlight ((t (:box nil))))
+ '(mode-line-inactive ((t (:underline nil :overline nil)))))
