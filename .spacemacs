@@ -280,9 +280,6 @@ layers configuration. You are free to put any user code."
 
   (setq org-reveal-root (expand-file-name "~/code/reveal.js"))
 
-  ;; Enable camelCase motion globally by default
-  (spacemacs/toggle-camel-case-motion-globally-on)
-
   (setq writeroom-width 80)
 
   ;; Indent with 2 spaces
