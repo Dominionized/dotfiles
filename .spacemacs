@@ -60,9 +60,12 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(writeroom-mode)
+   dotspacemacs-additional-packages '(writeroom-mode
+                                      zerodark-theme
+                                      material-theme
+                                      color-theme-sanityinc-tomorrow)
    ;; A list of packages and/or extensions that will not be install and loaded.
-   dotspacemacs-excluded-packages '()
+   dotspacemacs-excluded-packages '(evil-search-highlight-persist)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
    ;; the list `dotspacemacs-configuration-layers'. (default t)
@@ -115,9 +118,7 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(gruvbox-dark
-                         solarized-dark
-                         solarized-light)
+   dotspacemacs-themes '(gruvbox-dark)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
@@ -301,10 +302,18 @@ layers configuration. You are free to put any user code."
   ;; Enable golden ratio by default
   (spacemacs/toggle-golden-ratio-on)
 
+  ;; Disable smartparens whitespace highlighting between pairs
+  (setq sp-highlight-pair-overlay nil)
+
+  ;; Bind ace-window to SPC-w-SPC
+  (spacemacs/set-leader-keys "w SPC" 'ace-window)
+
   ;; Swap alt and cmd on Mac
   (when (eq system-type 'darwin)
     (setq mac-command-modifier 'meta)
     (setq mac-option-modifier nil))
+
+  (setq helm-ag-use-agignore t)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -314,13 +323,16 @@ layers configuration. You are free to put any user code."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(evil-want-Y-yank-to-eol t)
  '(flycheck-typescript-tslint-config "~/code/pretty-typescript/tslint.json")
+ '(frame-background-mode (quote dark))
  '(org-file-apps
    (quote
     ((auto-mode . emacs)
      ("\\.mm\\'" . default)
      ("\\.x?html?\\'" . default)
-     ("\\.pdf\\'" . "evince %s")))))
+     ("\\.pdf\\'" . "evince %s"))))
+ '(tooltip-hide-delay 9999))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
