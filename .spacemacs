@@ -111,7 +111,7 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(gruvbox-dark)
+   dotspacemacs-themes '(solarized-light)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
@@ -325,6 +325,7 @@ layers configuration. You are free to put any user code."
  '(evil-want-Y-yank-to-eol t)
  '(flycheck-typescript-tslint-config "~/code/pretty-typescript/tslint.json")
  '(frame-background-mode (quote dark))
+ '(magit-display-buffer-function (quote magit-display-buffer-same-window-except-diff-v1))
  '(org-file-apps
    (quote
     ((auto-mode . emacs)
