@@ -18,7 +18,6 @@ values."
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
    '(
-     php
      (auto-completion :variables
                       auto-completion-tab-key-behavior 'complete
                       auto-completion-return-key-behavior 'complete
@@ -46,7 +45,6 @@ values."
      latex
      typescript
      org-reveal
-     vim-powerline
      vinegar
      yaml
      )
@@ -57,6 +55,7 @@ values."
    dotspacemacs-additional-packages '(writeroom-mode
                                       zerodark-theme
                                       material-theme
+                                      solarized-theme
                                       color-theme-sanityinc-tomorrow)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(evil-search-highlight-persist)
@@ -279,11 +278,11 @@ layers configuration. You are free to put any user code."
   (setq writeroom-width 80)
 
   ;; Indent with 2 spaces
-  (setq js-indent-level 2)
-  (setq js2-basic-offset 2)
-  (setq web-mode-markup-indent-offset 2)
-  (setq typescript-indent-level 2)
-  (setq css-indent-offset 2)
+  (setq js-indent-level 2
+        js2-basic-offset 2
+        web-mode-markup-indent-offset 2
+        typescript-indent-level 2
+        css-indent-offset 2)
 
   ;; Disable semicolon warning in js2-mode
   (setq js2-strict-missing-semi-warning nil)
@@ -302,6 +301,11 @@ layers configuration. You are free to put any user code."
 
   ;; Bind ace-window to SPC-w-SPC
   (spacemacs/set-leader-keys "w SPC" 'ace-window)
+
+  (powerline-vim-theme)
+
+  ;; Solarized options
+  (setq solarized-use-variable-pitch nil)
 
   ;; Swap alt and cmd on Mac
   (when (eq system-type 'darwin)
