@@ -4,4 +4,4 @@
 # --
 Mock.optionsComponentSetup<${1:`(substring (file-name-nondirectory (file-name-sans-extension (buffer-file-name))) 0 -4)`}, ${2:I$1Options}>($1, {
   $3
-})
+});

@@ -18,13 +18,6 @@ values."
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
    '(
-     ;; ----------------------------------------------------------------
-     ;; Example of useful layers you may want to use right away.
-
-
-     ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
-     ;; <M-m f e R> (Emacs style) to install them.
-     ;; ----------------------------------------------------------------
      (auto-completion :variables
                       auto-completion-tab-key-behavior 'complete
                       auto-completion-return-key-behavior 'complete
@@ -53,7 +46,6 @@ values."
      latex
      typescript
      org-reveal
-     vim-powerline
      vinegar
      yaml
      )
@@ -61,9 +53,13 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(writeroom-mode)
+   dotspacemacs-additional-packages '(writeroom-mode
+                                      zerodark-theme
+                                      material-theme
+                                      solarized-theme
+                                      color-theme-sanityinc-tomorrow)
    ;; A list of packages and/or extensions that will not be install and loaded.
-   dotspacemacs-excluded-packages '()
+   dotspacemacs-excluded-packages '(evil-search-highlight-persist)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
    ;; the list `dotspacemacs-configuration-layers'. (default t)
@@ -116,9 +112,7 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(gruvbox-dark
-                         solarized-dark
-                         solarized-light)
+   dotspacemacs-themes '(solarized-light)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
@@ -263,7 +257,8 @@ in `dotspacemacs/user-config'."
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
-  (setq powerline-default-separator 'utf-8)
+  (spacemacs|do-after-display-system-init
+   (setq powerline-default-separator 'utf-8))
   (global-set-key (kbd "s-<up>") 'spacemacs/toggle-maximize-frame)
   (global-set-key (kbd "s-<down>") 'spacemacs/toggle-maximize-frame)
   (spacemacs/toggle-vi-tilde-fringe-off)
@@ -281,17 +276,14 @@ layers configuration. You are free to put any user code."
 
   (setq org-reveal-root (expand-file-name "~/code/reveal.js"))
 
-  ;; Enable camelCase motion globally by default
-  (spacemacs/toggle-camel-case-motion-globally-on)
-
   (setq writeroom-width 80)
 
   ;; Indent with 2 spaces
-  (setq js-indent-level 2)
-  (setq js2-basic-offset 2)
-  (setq web-mode-markup-indent-offset 2)
-  (setq typescript-indent-level 2)
-  (setq css-indent-offset 2)
+  (setq js-indent-level 2
+        js2-basic-offset 2
+        web-mode-markup-indent-offset 2
+        typescript-indent-level 2
+        css-indent-offset 2)
 
   ;; Disable semicolon warning in js2-mode
   (setq js2-strict-missing-semi-warning nil)
@@ -305,10 +297,23 @@ layers configuration. You are free to put any user code."
   ;; Enable golden ratio by default
   (spacemacs/toggle-golden-ratio-on)
 
+  ;; Disable smartparens whitespace highlighting between pairs
+  (setq sp-highlight-pair-overlay nil)
+
+  ;; Bind ace-window to SPC-w-SPC
+  (spacemacs/set-leader-keys "w SPC" 'ace-window)
+
+  (powerline-vim-theme)
+
+  ;; Solarized options
+  (setq solarized-use-variable-pitch nil)
+
   ;; Swap alt and cmd on Mac
   (when (eq system-type 'darwin)
     (setq mac-command-modifier 'meta)
     (setq mac-option-modifier nil))
+
+  (setq helm-ag-use-agignore t)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -318,16 +323,17 @@ layers configuration. You are free to put any user code."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(evil-want-Y-yank-to-eol t)
  '(flycheck-typescript-tslint-config "~/code/pretty-typescript/tslint.json")
+ '(frame-background-mode (quote dark))
+ '(magit-display-buffer-function (quote magit-display-buffer-same-window-except-diff-v1))
  '(org-file-apps
    (quote
     ((auto-mode . emacs)
      ("\\.mm\\'" . default)
      ("\\.x?html?\\'" . default)
      ("\\.pdf\\'" . "evince %s"))))
- '(package-selected-packages
-   (quote
-    (phpunit phpcbf php-extras php-auto-yasnippets drupal-mode php-mode evil-unimpaired org-projectile git-link yaml-mode ws-butler writeroom-mode window-numbering which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package toc-org tide tagedit spacemacs-theme spaceline smeargle slim-mode scss-mode sass-mode restart-emacs rainbow-mode rainbow-identifiers rainbow-delimiters quelpa pyvenv pytest pyenv-mode py-yapf popwin pip-requirements persp-mode pcre2el paradox orgit org-repo-todo org-present org-pomodoro org-plus-contrib org-download org-bullets open-junk-file noflet neotree move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum livid-mode live-py-mode linum-relative link-hint leuven-theme less-css-mode json-mode js2-refactor js-doc jade-mode info+ indent-guide ido-vertical-mode hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-gutter-fringe git-gutter-fringe+ gh-md flycheck-pos-tip flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu ensime emmet-mode elisp-slime-nav diff-hl define-word cython-mode csv-mode company-web company-tern company-statistics company-quickhelp company-auctex company-anaconda column-enforce-mode color-identifiers-mode coffee-mode clojure-snippets clj-refactor clean-aindent-mode cider-eval-sexp-fu buffer-move bracketed-paste auto-yasnippet auto-highlight-symbol auto-compile auctex-latexmk aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
+ '(tooltip-hide-delay 9999))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
