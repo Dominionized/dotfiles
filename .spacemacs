@@ -304,9 +304,6 @@ layers configuration. You are free to put any user code."
 
   (powerline-vim-theme)
 
-  ;; Solarized options
-  (setq solarized-use-variable-pitch nil)
-
   ;; Swap alt and cmd on Mac
   (when (eq system-type 'darwin)
     (setq mac-command-modifier 'meta)
@@ -332,7 +329,11 @@ layers configuration. You are free to put any user code."
      ("\\.mm\\'" . default)
      ("\\.x?html?\\'" . default)
      ("\\.pdf\\'" . "evince %s"))))
- '(tooltip-hide-delay 9999))
+ '(solarized-high-contrast-mode-line t)
+ '(solarized-scale-org-headlines nil)
+ '(solarized-use-variable-pitch nil)
+ '(tooltip-hide-delay 9999)
+ '(web-mode-markup-indent-offset 2))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
