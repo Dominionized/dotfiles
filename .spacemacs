@@ -38,6 +38,7 @@ values."
      clojure
      javascript
      scala
+     php
      html
      python
      react
