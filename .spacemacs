@@ -257,11 +257,14 @@ in `dotspacemacs/user-config'."
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
-  (spacemacs|do-after-display-system-init
-   (setq powerline-default-separator 'utf-8))
+
+  (add-hook 'before-make-frame-hook
+            (lambda ()
+              (powerline-vim-theme)
+              ))
+
   (global-set-key (kbd "s-<up>") 'spacemacs/toggle-maximize-frame)
   (global-set-key (kbd "s-<down>") 'spacemacs/toggle-maximize-frame)
-  (spacemacs/toggle-vi-tilde-fringe-off)
   (setq org-startup-indented t)
 
   ;; Turn on auto-fill for Org mode and Markdown
@@ -303,7 +306,6 @@ layers configuration. You are free to put any user code."
   ;; Bind ace-window to SPC-w-SPC
   (spacemacs/set-leader-keys "w SPC" 'ace-window)
 
-  (powerline-vim-theme)
 
   ;; Swap alt and cmd on Mac
   (when (eq system-type 'darwin)
@@ -330,11 +332,15 @@ layers configuration. You are free to put any user code."
      ("\\.mm\\'" . default)
      ("\\.x?html?\\'" . default)
      ("\\.pdf\\'" . "evince %s"))))
+ '(package-selected-packages
+   (quote
+    (evil-unimpaired zerodark-theme yapfify yaml-mode ws-butler writeroom-mode window-numbering which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package toc-org tide tagedit spacemacs-theme spaceline solarized-theme smeargle slim-mode scss-mode sass-mode restart-emacs rainbow-mode rainbow-identifiers rainbow-delimiters quelpa pyvenv pytest pyenv-mode py-isort popwin pip-requirements phpunit phpcbf php-extras php-auto-yasnippets persp-mode pcre2el paradox orgit org-projectile org-present org-pomodoro org-plus-contrib org-download org-bullets open-junk-file noflet neotree move-text mmm-mode material-theme markdown-toc magit-gitflow macrostep lorem-ipsum livid-mode live-py-mode linum-relative link-hint less-css-mode json-mode js2-refactor js-doc jade-mode info+ indent-guide ido-vertical-mode hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md flycheck-pos-tip flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu ensime emmet-mode elisp-slime-nav dumb-jump drupal-mode diff-hl define-word cython-mode company-web company-tern company-statistics company-quickhelp company-auctex company-anaconda column-enforce-mode color-theme-sanityinc-tomorrow color-identifiers-mode coffee-mode clojure-snippets clj-refactor clean-aindent-mode cider-eval-sexp-fu auto-yasnippet auto-highlight-symbol auto-compile auctex-latexmk aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell)))
+ '(powerline-default-separator (quote utf-8))
  '(solarized-high-contrast-mode-line t)
  '(solarized-scale-org-headlines nil)
  '(solarized-use-variable-pitch nil)
  '(tooltip-hide-delay 9999)
- '(web-mode-markup-indent-offset 2))
+ '(web-mode-markup-indent-offset 2 t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
