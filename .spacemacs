@@ -57,6 +57,7 @@ values."
                                       zerodark-theme
                                       material-theme
                                       solarized-theme
+                                      base16-theme
                                       color-theme-sanityinc-tomorrow)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(evil-search-highlight-persist)
