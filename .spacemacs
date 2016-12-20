@@ -56,7 +56,6 @@ values."
      version-control
      clojure
      javascript
-     php
      html
      python
      react
@@ -316,7 +315,6 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
-  (add-hook 'before-make-frame-hook (lambda () (powerline-vim-theme)))
 
   (global-set-key (kbd "s-<up>") 'spacemacs/toggle-maximize-frame)
   (global-set-key (kbd "s-<down>") 'spacemacs/toggle-maximize-frame)
@@ -368,6 +366,8 @@ you should place your code here."
     (setq mac-option-modifier nil))
 
   (setq helm-ag-use-agignore t)
+
+  (setq powerline-default-separator 'utf-8)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
